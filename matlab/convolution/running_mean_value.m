@@ -15,6 +15,8 @@ function y = running_mean_value(x, M)
    if blocksize == 0 || M == 0
        y = x;
        return;
+   elseif (~isreal(M)) || (rem(M,1) ~= 0)
+        error('ERROR: Window size M must be a real, non-negative integer')
    end
    
    y = zeros(1,blocksize);

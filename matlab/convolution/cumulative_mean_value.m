@@ -7,17 +7,18 @@
 % each value of y(n) is given by the average of all n-samples of x prior
 %
 function y = cumulative_mean_value(x)
-    y = zeros(1, length(x));
+    blocksize = length(x);
+    y = zeros(1, blocksize);
     n = 1;
     
     % no values to calculate if no input samples
-    if isequal(x, [])
+    if blocksize == 0
         y = [];
         return
     end
     
     % while we're still in the block of samples of input
-    while n <= length(x)
+    while n <= blocksize
         i = 0;
         % add each sample prior to x(n+1)
         while i < n
