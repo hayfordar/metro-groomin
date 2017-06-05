@@ -1,30 +1,33 @@
 %% MATLAB implementation of second-order filter generator to meet filter specs
 %
-% createsos(zeros, poles, k) creates second-order sections to implement
-% a filter described by the input poles, zeros, and gain factor k. 
+% createsos(zeros, poles, ) creates second-order sections to implement
+% a filter described by the input poles and zeros
 % This function generates plots of the gains from each section, as well
 % as the total gain of the filter. The created coefficients are dumped
 % to stdout in a format which is compliant with most C/C++ compilers
 %
 
-function createsos(zeros, poles, k)
-    %% Set up filter sections and initialisations for plotting
+function createsos(zeros, poles, N)
+    % Obtain a and b coefficients 
+    b = poly(zeros) ;
+    a = poly(poles) ;
+      
+    % Calculate maximum gain and adjust numerator by scale factor to reduce
+    % gain to 0dB
+    gmax = filternorm(b, a, inf);
+    k = 1/gmax;
+    b = b*k;
+    
+    % setup sections
     [sos, g] = zp2sos(zeros, poles, k, 'up', 'inf') ;
-
-    % Section-ize the filter
     q_sect = size(sos, 1) ;
 
     % Create linearly spaced values of normalized frequency f
-    f = linspace(0,0.5,1001) ;
+    f = linspace(0,0.5,N) ;
 
     % Substitution for z = e^{j2pif}
     z = exp(j*2*pi*f) ; 
-
-    % Obtain a and b coefficients 
-    b = poly(zeros)*k ;
-    a = poly(poles) ;
-
-
+    
     %% Plot gain of all sections with final gain
     figure (3);
 
@@ -35,7 +38,7 @@ function createsos(zeros, poles, k)
     % Label and format
     xlabel('Frequency [Normalized] (cycle/sample)') ;
     ylabel('Filter Gain (dB)') ;
-    axis([0 0.5 -60 60]) ;
+    %axis([0 0.5 -60 60]) ;
     grid on ;
     zoom on ;
     hold on ;
@@ -45,10 +48,15 @@ function createsos(zeros, poles, k)
     Hf = g * ones(size(f)) ;
 
     % Iterate through sections, plotting intermediate gains
-    for i = 1: size(sos, 1) ;
+    color_i = 1
+    for i = 1: size(sos, 1)
+        if color_i > length(colors)
+            color_i = 1;
+        end
         Hf = Hf ./ polyval(sos(i, 4:6), z) ;
         plot(f, 20*log10(abs(Hf)), colors(i));
         Hf = Hf .* polyval(sos(i, 1:3),z) ;
+        color_i = color_i + 1;
     end
 
     % Plot final obtained gain

@@ -1,9 +1,6 @@
 %% MATLAB utility to create an IIR filter from a cascaded structure of 2nd order filters
-% This MATLAB script plots poles and zeroes against the unit circle, then
-% creates a series of second order filters that meets the specifications
-
-
-%% System properties and initialisations
+% Creates an IIR filter that satisfies the provided poles and zeros using a
+% series of 2nd order sections
 
 % Quantity of steps, setup omega 
 N = 1001;
@@ -24,21 +21,8 @@ zeros = [1.00*exp(j*2*pi*0.00*[-1 1]) ...
             0.90*exp(j*2*pi*0.35*[-1 1]) ...
             ];
         
-%% Plot poles and zeros in respect to unit circle       
+% Plot poles and zeros in respect to unit circle       
 complexplot(poles, zeros, w)
 
-%% Gather and plot frequency response
-
-% Get and b coefficients
-[a, b, hf] = getfreqresp(poles, zeros, N);
-
-%% Create filter sections
-
-% Calculate maximum gain
-gmax = filternorm(b, a, inf);
-
-% Adjust filter by scale factor g to reduce gain to 0dB
-k = 1/gmax;
-
 % Run filter sections %
-createsos(zeros, poles, k);
+createsos(zeros, poles, N);
