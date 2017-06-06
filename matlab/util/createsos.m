@@ -29,7 +29,7 @@ function createsos(zeros, poles, N)
     z = exp(j*2*pi*f) ; 
     
     %% Plot gain of all sections with final gain
-    figure (3);
+    figure (2);
 
     % Plot ideal (desired H(f))
     Hf = polyval(b, z)./polyval(a, z) ;
@@ -48,7 +48,7 @@ function createsos(zeros, poles, N)
     Hf = g * ones(size(f)) ;
 
     % Iterate through sections, plotting intermediate gains
-    color_i = 1
+    color_i = 1;
     for i = 1: size(sos, 1)
         if color_i > length(colors)
             color_i = 1;
@@ -63,7 +63,7 @@ function createsos(zeros, poles, N)
     plot(f, 20*log10(abs(Hf)), 'k');
 
     %% Plot the final gain separately, for ease of matching spec
-    figure (4)
+    figure (3)
 
     % Make spec bound 1
     x1 = [0 0 0.04 0.04];
@@ -86,40 +86,13 @@ function createsos(zeros, poles, N)
     % Label and format
     xlabel('Frequency [Normalized] (cycle/sample)') ;
     ylabel('Filter Gain (dB)') ;
-    axis([0 0.5 -60 60]) ;
+    %axis([0 0.5 -60 60]) ;
     grid on ;
     zoom on ;
     hold on ;
 
     %% Print generated filter as coefficients
-
-    % Grab a and b coefficients
-    b_coefs = sos(:, 1:3);
-    a_coefs = sos(:, 4:6);
-
-    % Grab gain
-    gain = g;
-
-    % Print the quantity of sections and gain 
-    fprintf(1, 'static int sections = %d ;\n', q_sect);
-    fprintf(1, 'static float G = %1.10e ;\n', gain);
-    fprintf(1, '\n') ;
-
-    % Print the a-coefficients 
-    fprintf(1, 'float a[][3] = {\n');
-    for i = 1 : q_sect - 1
-        fprintf(1, '\t{%1.10e, %1.10e, %1.10e},\n', a_coefs(i,:));
-    end
-    % Print last coefficients, end with closing brace and semicolon
-    fprintf(1,'\t{%1.10e, %1.10e, %1.10e}\n};\n', a_coefs(q_sect,:));
-
-    % Print b-coefficients
-    fprintf(1, 'float b[][3] = {\n');
-    for i = 1 : q_sect - 1
-        fprintf(1, '\t{%1.10e, %1.10e, %1.10e},\n', b_coefs(i,:));
-    end
-    % Print last coefficients, end with closing brace and semicolon
-    fprintf(1,'\t{%1.10e, %1.10e, %1.10e}\n};\n', b_coefs(q_sect,:));
+    printcoef_c(sos, g, q_sect);
 
 end
 
