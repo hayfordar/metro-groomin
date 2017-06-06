@@ -66,31 +66,19 @@ function createsos(zeros, poles, N)
     figure (4)
 
     % Make spec bound 1
-    x = [0 0 0.04 0.04];
-    y = [-40 -60 -60 -40];
-    h1 = patch;
-    set(h1, 'FaceAlpha', 0.5);
-    set(h1, 'XData', x);
-    set(h1, 'YData', y);
-    hold on
+    x1 = [0 0 0.04 0.04];
+    y1 = [-40 -60 -60 -40];
+    plotspec(x1,y1);
 
     % Make spec bound 2
-    x = [0.1 0.1 0.25 0.25];
-    y = [-7 -5 0 -2];
-    h2 = patch;
-    set(h2, 'FaceAlpha', 0.5);
-    set(h2, 'XData', x);
-    set(h2, 'YData', y);
-    hold on
+    x2 = [0.1 0.1 0.25 0.25];
+    y2 = [-5 -7 -2 0];
+    plotspec(x2,y2);
 
     % Make spec bound 3
-    x = [0.32 0.32 0.5 0.5];
-    y = [-60 -35 -35 -60];
-    h = patch;
-    set(h, 'FaceAlpha', 0.5);
-    set(h, 'XData', x);
-    set(h, 'YData', y);
-    hold on
+    x3 = [0.32 0.32 0.5 0.5];
+    y3 = [-35 -60 -60 -35];
+    plotspec(x3,y3);
 
     % Plot final gain
     plot(f, 20*log10(abs(Hf)), 'k');
