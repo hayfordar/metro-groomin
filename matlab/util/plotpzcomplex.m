@@ -1,4 +1,4 @@
-function complexplot(poles, zeros, w)
+function plotpzcomplex(poles, zeros, w)
     if length(zeros) >= length(poles)
         error('ERROR: System must have more poles than zeros to be causal')
     end

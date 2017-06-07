@@ -14,4 +14,5 @@ function plotspec(x, y)
     set(h, 'XData', x);
     set(h, 'YData', y);
     hold on
+end
     

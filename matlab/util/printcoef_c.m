@@ -1,3 +1,8 @@
+%% Prints coefficients of second order sections in C-style arrays
+%
+% Loops through the filter details and prints relevant details in
+% C data types.
+%
 function printcoef_c(sos, g, n_sections)
     % Grab a and b coefficients
     b_coefs = sos(:, 1:3);

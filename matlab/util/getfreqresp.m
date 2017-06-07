@@ -1,3 +1,9 @@
+%% Returns a/b coefficients for ideal frequency repsonse Hf based on poles and zeros
+%
+% Simple function that creates matrices of polynomial coefficients based on
+% the input poles and zeros. Returns a frequency response based on the
+% number of samples N.
+%
 function [a, b, hf] = getfreqresp(poles, zeros, N)
     a = poly(poles) ;
     b = poly(zeros) ;
