@@ -1,4 +1,11 @@
+%% Plots poles and zeros of a causal system on the unit circle
+%
+% This function assumes the system is causal, and thus will return an error
+% if the number of zeros is greater than or equal to the number of poles
+%
+
 function plotpzcomplex(poles, zeros, w)
+    % Return error if system will not be causal
     if length(zeros) >= length(poles)
         error('ERROR: System must have more poles than zeros to be causal')
     end
