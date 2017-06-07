@@ -10,5 +10,5 @@ For MATLAB tools, it is recommended you add the matlab/ directory to your PATH
 |:---------------------- |:--------------------------------------------------------------------------------------------| 
 | block-convolution/     | Convolution algorithms for use on fixed-size sample blocks, does not include sample history |
 | block-filters/         | Simple implementations of filters using fixed size blocks                                   |
-| filter-iir-sos         | Infinite Impluse Response (IIR) filter design helper using second-order sections            |
-| util                   | Reusable utilities for general use in DSP work                                              |
+| filter-iir-sos/        | Infinite Impluse Response (IIR) filter design helper using second-order sections            |
+| util/                  | Reusable utilities for general use in DSP work                                              |
