@@ -31,15 +31,26 @@ function y = filteriir(x, b, a)
     if length(b) ~= length(a)
         error('ERROR: The transfer function must be a ratio of quadratics');
     end
+    
     blocksize = length(x);
     y = zeros(1, blocksize);
     
-    if blocksize == 0:
+    % We don't need to do anything if samples block is blank
+    if blocksize == 0
         return
     end
-        
     
+    n = 1;
+    
+    % go through all samples 
+    while n <= blocksize
+        y(n) = (b(1)*df2_interm_f(n, x, a) + ...
+                b(2)*df2_interm_f(n-1, x, a) + ...
+                b(3)*df2_interm_f(n-2, x, a) ...
+                ) * 1/a(1);
 
+        n = n + 1;
+    end
 
 
 end
