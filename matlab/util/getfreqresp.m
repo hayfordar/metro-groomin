@@ -16,5 +16,4 @@ function [a, b, hf] = getfreqresp(poles, zeros, N)
 
     % Get frequency response
     hf = 20*log10(abs(num./den));
-    
 end

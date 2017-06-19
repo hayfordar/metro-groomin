@@ -42,6 +42,5 @@ function createiir(poles, zeros, x_specs, y_specs, N)
 
     % Print generated filter as coefficients
     printcoef_c(sos, g, n_sections);
-
 end
 

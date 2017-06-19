@@ -18,7 +18,6 @@ function y = filterfir(x, h)
         return
     end
     
-    
     n = 1;
     % for each n in the output y(n)
     while n <= blocksize

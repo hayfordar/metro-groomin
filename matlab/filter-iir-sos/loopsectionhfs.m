@@ -41,5 +41,4 @@ function Hf = loopsectionhfs(sos, g, f)
     
     % Plot final obtained Hf
     plot(f, 20*log10(abs(Hf)), 'k.-', 'LineWidth', 3);
-    
 end

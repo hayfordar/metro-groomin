@@ -11,6 +11,9 @@
 % y(n) = 1/a0 ( b0*m(n) + b1*m(n-1) + b2*m(n-2) )
 %
 function mn = df2_interm_f(k, x, a)
+    if length(a) ~= 3
+        error('Coefficients need to be in array [a0 a1 a2]')
+    end
     mn = 0;
     
     if k < 1
